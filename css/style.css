@@ -556,10 +556,11 @@ a {
   color: var(--muted);
 }
 
-.family-more-content img {
+.family-more-photo {
   display: block;
   width: 100%;
-  max-width: 360px;
+  max-width: 220px;
+  margin: 8px auto 0;
   border-radius: 16px;
   box-shadow: var(--shadow);
 }

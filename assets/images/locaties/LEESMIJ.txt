@@ -2,13 +2,13 @@ Plaats hier de sfeerfoto's voor de 4 kaarten in de sectie "De eerste ervaring"
 (blokken 01 t/m 04). De bestandsnamen moeten exact overeenkomen, anders
 verschijnt de foto niet.
 
-- havik-47.jpg                  → kaart 01, Havik 47
+- havik-47.jpg                  → kaart 01, Havik 47 (wordt ook hergebruikt,
+                                    niet-vervaagd, in de uitklapbare kaart
+                                    "De familie" in de organisatie-sectie)
 - de-hof.jpg                    → kaart 02, De Hof
 - onze-lieve-vrouwetoren.jpg     → kaart 03, Onze Lieve Vrouwetoren
 - koppelpoort.jpg                → kaart 04, Koppelpoort
 - havik-47-familie.jpg           → hero-kaart "Vanuit Havik 47"
-- familie-van-ramselaar.jpg      → uitklapbare kaart "De familie" (organisatie-sectie),
-                                    zichtbaar zodra bezoeker op "Lees meer" klikt
 
 Aanbevolen specificaties:
 - Formaat: JPG (foto's, geen doorzichtige achtergrond nodig — de CSS
@@ -23,7 +23,7 @@ css/style.css), zodat de leesbaarheid en toegankelijkheid (WCAG-contrast)
 gewaarborgd blijven. Zolang een van die bestanden ontbreekt, blijft de kaart
 gewoon egaal donker — er verschijnt geen fout.
 
-"familie-van-ramselaar.jpg" is een uitzondering: die foto wordt normaal
-(niet vervaagd) getoond, pas nadat de bezoeker de kaart "De familie"
-openklapt. Ontbreekt dit bestand, dan verdwijnt de foto stil uit de
-uitklaptekst — ook dan verschijnt er geen fout.
+In de uitklapbare kaart "De familie" (organisatie-sectie) wordt "havik-47.jpg"
+nogmaals gebruikt, maar dan normaal (niet vervaagd) en bescheiden van formaat,
+gecentreerd onder de tekst. Deze foto wordt pas zichtbaar nadat de bezoeker op
+"Lees meer over de familie" klikt.
