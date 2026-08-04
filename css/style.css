@@ -551,9 +551,14 @@ a {
   border-top: 1px solid var(--border);
 }
 
-.family-more-content p {
-  margin: 0 0 18px;
+.family-card .family-more-content p {
+  margin: 0 0 20px;
   color: var(--muted);
+  line-height: 1.7;
+}
+
+.family-card .family-more-content p:last-of-type {
+  margin-bottom: 0;
 }
 
 .family-more-photo {
