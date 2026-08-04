@@ -6,6 +6,9 @@ verschijnt de foto niet.
 - de-hof.jpg                    → kaart 02, De Hof
 - onze-lieve-vrouwetoren.jpg     → kaart 03, Onze Lieve Vrouwetoren
 - koppelpoort.jpg                → kaart 04, Koppelpoort
+- havik-47-familie.jpg           → hero-kaart "Vanuit Havik 47"
+- familie-van-ramselaar.jpg      → uitklapbare kaart "De familie" (organisatie-sectie),
+                                    zichtbaar zodra bezoeker op "Lees meer" klikt
 
 Aanbevolen specificaties:
 - Formaat: JPG (foto's, geen doorzichtige achtergrond nodig — de CSS
@@ -14,7 +17,13 @@ Aanbevolen specificaties:
 - Bestandsgrootte: probeer onder de 300 KB te blijven (comprimeer bijv. via
   Squoosh.app) voor een snelle website
 
-De foto's worden automatisch vervaagd en verdonkerd weergegeven achter de
-tekst (opacity + gradient in css/style.css), zodat de leesbaarheid en
-toegankelijkheid (WCAG-contrast) gewaarborgd blijven. Zolang een bestand
-ontbreekt, blijft de kaart gewoon egaal donker — er verschijnt geen fout.
+De foto's van kaart 01-04 en "havik-47-familie.jpg" worden automatisch
+vervaagd en verdonkerd weergegeven achter de tekst (opacity + gradient in
+css/style.css), zodat de leesbaarheid en toegankelijkheid (WCAG-contrast)
+gewaarborgd blijven. Zolang een van die bestanden ontbreekt, blijft de kaart
+gewoon egaal donker — er verschijnt geen fout.
+
+"familie-van-ramselaar.jpg" is een uitzondering: die foto wordt normaal
+(niet vervaagd) getoond, pas nadat de bezoeker de kaart "De familie"
+openklapt. Ontbreekt dit bestand, dan verdwijnt de foto stil uit de
+uitklaptekst — ook dan verschijnt er geen fout.
