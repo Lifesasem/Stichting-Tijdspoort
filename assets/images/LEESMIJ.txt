@@ -1,0 +1,9 @@
+Plaats hier de afbeeldingen voor de website:
+
+- hero-amersfoort.jpg     (aanbevolen: 1920×1080px, historisch stadsaanzicht Amersfoort)
+- amersfoort-historisch.jpg  (aanbevolen: 600×400px, Koppelpoort of binnenstad)
+- project-koppelpoort.jpg    (aanbevolen: 480×300px, VR reconstructie)
+- project-stadsmuur.jpg      (aanbevolen: 480×300px, digitale tijdlijn)
+
+Gebruik geoptimaliseerde JPEG- of WebP-bestanden voor de beste laadsnelheid.
+Voorzie elke afbeelding van een beschrijvende bestandsnaam (geen spaties).
