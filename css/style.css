@@ -328,8 +328,50 @@ a {
 }
 
 .feature-card {
+  position: relative;
   min-height: 250px;
+  overflow: hidden;
   background: rgba(255,255,255,0.055);
+  isolation: isolate;
+}
+
+/* Vervaagde sfeerfoto per locatie, geplaatst achter de tekst.
+   Zolang het bijbehorende bestand in assets/images/locaties ontbreekt,
+   blijft de kaart gewoon egaal donker (background-image faalt stil). */
+.feature-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.32;
+  filter: grayscale(35%);
+}
+
+.feature-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(20, 33, 61, 0.35) 0%, rgba(20, 33, 61, 0.92) 75%);
+}
+
+.feature-card--havik::before {
+  background-image: url("../assets/images/locaties/havik-47.jpg");
+}
+
+.feature-card--hof::before {
+  background-image: url("../assets/images/locaties/de-hof.jpg");
+}
+
+.feature-card--toren::before {
+  background-image: url("../assets/images/locaties/onze-lieve-vrouwetoren.jpg");
+}
+
+.feature-card--koppelpoort::before {
+  background-image: url("../assets/images/locaties/koppelpoort.jpg");
 }
 
 .step {

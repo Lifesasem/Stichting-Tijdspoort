@@ -1,0 +1,20 @@
+Plaats hier de sfeerfoto's voor de 4 kaarten in de sectie "De eerste ervaring"
+(blokken 01 t/m 04). De bestandsnamen moeten exact overeenkomen, anders
+verschijnt de foto niet.
+
+- havik-47.jpg                  → kaart 01, Havik 47
+- de-hof.jpg                    → kaart 02, De Hof
+- onze-lieve-vrouwetoren.jpg     → kaart 03, Onze Lieve Vrouwetoren
+- koppelpoort.jpg                → kaart 04, Koppelpoort
+
+Aanbevolen specificaties:
+- Formaat: JPG (foto's, geen doorzichtige achtergrond nodig — de CSS
+  verzorgt zelf de transparantie/vervaging over de foto heen)
+- Afmetingen: minimaal 800×600 px, richting landschap
+- Bestandsgrootte: probeer onder de 300 KB te blijven (comprimeer bijv. via
+  Squoosh.app) voor een snelle website
+
+De foto's worden automatisch vervaagd en verdonkerd weergegeven achter de
+tekst (opacity + gradient in css/style.css), zodat de leesbaarheid en
+toegankelijkheid (WCAG-contrast) gewaarborgd blijven. Zolang een bestand
+ontbreekt, blijft de kaart gewoon egaal donker — er verschijnt geen fout.
