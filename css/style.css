@@ -211,12 +211,36 @@ a {
 }
 
 .hero-card {
+  position: relative;
   padding: 38px;
+  overflow: hidden;
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: var(--radius);
   color: white;
   background: var(--dark);
   box-shadow: var(--shadow);
+  isolation: isolate;
+}
+
+.hero-card--familie::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: url("../assets/images/locaties/havik-47-familie.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.4;
+  filter: grayscale(35%);
+}
+
+.hero-card--familie::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(20, 33, 61, 0.35) 0%, rgba(20, 33, 61, 0.9) 75%);
 }
 
 .hero-card h2 {
@@ -346,8 +370,8 @@ a {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  opacity: 0.32;
-  filter: grayscale(35%);
+  opacity: 0.42;
+  filter: grayscale(25%);
 }
 
 .feature-card::after {
@@ -355,7 +379,7 @@ a {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(20, 33, 61, 0.35) 0%, rgba(20, 33, 61, 0.92) 75%);
+  background: linear-gradient(180deg, rgba(20, 33, 61, 0.28) 0%, rgba(20, 33, 61, 0.86) 75%);
 }
 
 .feature-card--havik::before {
