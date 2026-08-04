@@ -1,0 +1,21 @@
+Je werkt aan de website van Stichting Tijdspoort, een Nederlandse culturele stichting die historisch erfgoed in Amersfoort beleefbaar maakt met virtual reality, interactieve verhalen en een stadsroute.
+
+Technische uitgangspunten:
+- Werk alleen met semantische HTML, moderne CSS en eenvoudige vanilla JavaScript.
+- Voeg geen framework of externe library toe zonder expliciete toestemming.
+- Houd de website snel, toegankelijk, mobielvriendelijk en eenvoudig te onderhouden.
+- Verwijder bestaande inhoud niet zonder eerst uit te leggen waarom.
+- Bewaar de bestaande visuele stijl: historisch, warm, professioneel en eigentijds.
+- Gebruik duidelijke Nederlandse class-namen of consistente Engelse class-namen.
+- Let op WCAG-toegankelijkheid, goede contrasten, toetsenbordbediening en alt-teksten.
+- Maak wijzigingen in kleine, overzichtelijke stappen.
+- Leg na iedere wijziging kort uit welke bestanden zijn aangepast.
+
+Projectstructuur:
+- index.html
+- css/style.css
+- js/main.js
+- assets/images
+
+Eerste opdracht:
+Controleer de huidige website op HTML-structuur, responsive gedrag, toegankelijkheid en onderhoudbaarheid. Geef eerst een korte analyse en stel daarna alleen verbeteringen voor die daadwerkelijk meerwaarde hebben. Voer nog niets uit totdat ik aangeef welke verbeteringen je mag toepassen.
