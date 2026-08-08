@@ -1,0 +1,63 @@
+name: Deploy testwebsite to Mijn.host
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tijdspoort-test
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy test website
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository ophalen
+        uses: actions/checkout@v4
+
+      - name: Publicatiemap voorbereiden
+        run: |
+          mkdir -p "$RUNNER_TEMP/tijdspoort-site"
+
+          rsync -av \
+            --exclude=".git/" \
+            --exclude=".github/" \
+            --exclude=".vscode/" \
+            --exclude=".gitignore" \
+            --exclude=".DS_Store" \
+            --exclude="README.md" \
+            --exclude="CLAUDE-PROMPT.txt" \
+            ./ "$RUNNER_TEMP/tijdspoort-site/"
+
+      - name: LFTP installeren
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Testwebsite via SFTP publiceren
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_REMOTE_PATH: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
+        run: |
+          lftp -u "$SFTP_USERNAME","$SFTP_PASSWORD" \
+            -p "$SFTP_PORT" \
+            "sftp://$SFTP_HOST" <<EOF
+          set sftp:auto-confirm yes
+          set cmd:fail-exit yes
+          set net:max-retries 3
+          set net:timeout 20
+
+          mirror --reverse --verbose \
+            "$RUNNER_TEMP/tijdspoort-site/" \
+            "$SFTP_REMOTE_PATH"
+
+          bye
+          EOF
