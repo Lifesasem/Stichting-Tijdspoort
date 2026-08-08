@@ -36,6 +36,16 @@ jobs:
             --exclude="CLAUDE-PROMPT.txt" \
             ./ "$RUNNER_TEMP/tijdspoort-site/"
 
+          # Voorkom dat zoekmachines de testwebsite indexeren
+          printf 'User-agent: *\nDisallow: /\n' \
+            > "$RUNNER_TEMP/tijdspoort-site/robots.txt"
+
+          printf '%s\n' \
+            '<IfModule mod_headers.c>' \
+            '  Header set X-Robots-Tag "noindex, nofollow, noarchive"' \
+            '</IfModule>' \
+            > "$RUNNER_TEMP/tijdspoort-site/.htaccess"
+
       - name: LFTP installeren
         run: sudo apt-get update && sudo apt-get install -y lftp
 
