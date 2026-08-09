@@ -18,6 +18,8 @@
   --muted: #4d5872;
   --accent: var(--pink);
   --accent-dark: var(--pink-dark);
+  --button-bg: var(--pink-dark);
+  --button-bg-hover: #a62c54;
   --dark: var(--navy);
   --border: rgba(20, 33, 61, 0.14);
   --shadow: 0 24px 60px rgba(20, 33, 61, 0.16);
@@ -186,9 +188,21 @@ a {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.65fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 70px;
   align-items: end;
+}
+
+.hero-theme {
+  margin: -12px 0 0;
+  color: var(--pink-dark);
+  font-family: "Fredoka", "Inter", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.section-dark .hero-theme {
+  color: var(--yellow);
 }
 
 .hero-text {
@@ -270,14 +284,15 @@ a {
   border: 0;
   border-radius: 999px;
   color: white;
-  background: var(--accent);
+  background: var(--button-bg);
   text-decoration: none;
   font-weight: 700;
   transition: transform 160ms ease, background 160ms ease;
 }
 
-.button:hover {
-  background: var(--accent-dark);
+.button:hover,
+.button:focus-visible {
+  background: var(--button-bg-hover);
   transform: translateY(-2px);
 }
 
@@ -313,6 +328,10 @@ a {
 .prose {
   color: var(--muted);
   font-size: 1.08rem;
+}
+
+.section-dark .prose {
+  color: rgba(255,255,255,0.85);
 }
 
 .section-dark .section-heading p {
@@ -405,6 +424,17 @@ a {
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.14em;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.step-light {
+  margin-bottom: 18px;
+  color: var(--pink-dark);
 }
 
 .feature-card p {
@@ -692,7 +722,8 @@ a {
   .cards-grid,
   .info-grid,
   .stats-grid,
-  .team-grid {
+  .team-grid,
+  .steps-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -721,7 +752,8 @@ a {
   .cards-grid,
   .info-grid,
   .stats-grid,
-  .team-grid {
+  .team-grid,
+  .steps-grid {
     grid-template-columns: 1fr;
   }
 
