@@ -197,6 +197,13 @@ a {
   align-items: end;
 }
 
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 380px);
+  gap: 50px;
+  align-items: center;
+}
+
 .hero-theme {
   margin: -12px 0 0;
   color: var(--pink-dark);
@@ -220,6 +227,14 @@ a {
   margin: -8px 0 0;
   color: var(--muted);
   font-size: clamp(1.02rem, 1.4vw, 1.15rem);
+}
+
+.hero-sensory {
+  max-width: 50ch;
+  margin: 0;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
 }
 
 .hero-logo-preview {
@@ -319,6 +334,19 @@ a {
 
 .section {
   padding: 110px 0;
+}
+
+.section-tight {
+  padding: 56px 0;
+}
+
+.sensory-line {
+  max-width: 60ch;
+  margin: 0;
+  font-family: "Fredoka", "Inter", sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  color: var(--yellow);
 }
 
 .section-dark {
@@ -700,71 +728,282 @@ a {
   object-fit: contain;
 }
 
-/* Historische tijdvensters: diagonale inkeping waardoor het oude Amersfoort
-   zichtbaar wordt binnen de moderne pagina. */
-.time-window-section {
-  padding: 70px 0;
-}
-
-.time-window-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 50px;
-  align-items: center;
-}
-
-.time-window-grid--reverse .time-window-figure {
-  order: -1;
-}
-
-.time-window-figure {
-  margin: 0;
-}
-
-.time-window {
+/* Historische beeldflarden: kleine, asymmetrische fragmenten die de moderne
+   pagina binnendringen. Grootte, rotatie en uitsnede per plaatsing instelbaar
+   via modifierclasses en de --ratio/--focal custom properties. */
+.shard {
   position: relative;
-  aspect-ratio: var(--ratio, 4 / 5);
   overflow: hidden;
-  border-radius: var(--radius);
   opacity: 0;
-  transform: translateY(26px) scale(0.98);
+  transform: translateY(24px) scale(0.98);
   transition: opacity 700ms ease, transform 700ms ease;
 }
 
-.time-window.is-visible {
+.shard.is-visible {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
-.time-window img {
+.shard img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: var(--focal, center);
-  filter: grayscale(12%) contrast(1.04);
+  filter: grayscale(15%) contrast(1.05);
 }
 
-.time-window--right {
-  clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
-}
-
-.time-window--left {
-  clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
-}
-
-.time-window-figure figcaption {
-  margin-top: 14px;
+.shard figcaption {
+  margin-top: 8px;
   color: var(--muted);
-  font-size: 0.86rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+.section-dark .shard figcaption {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .time-window {
+  .shard {
     opacity: 1;
     transform: none;
     transition: none;
   }
+}
+
+/* Hero-beeldcluster: twee kleine flarden plus een decoratief jaartal. */
+.hero-visual {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 4 / 5;
+  justify-self: end;
+}
+
+.hero-year {
+  position: absolute;
+  top: -0.2em;
+  right: -0.08em;
+  z-index: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: clamp(5.5rem, 15vw, 9.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgba(20, 33, 61, 0.09);
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-visual .shard {
+  position: absolute;
+  aspect-ratio: var(--ratio, 4 / 5);
+  border-radius: 0;
+  box-shadow: 0 20px 44px rgba(20, 33, 61, 0.22);
+}
+
+.hero-visual .shard--a {
+  top: 4%;
+  right: -6%;
+  z-index: 1;
+  width: 62%;
+  clip-path: polygon(14% 0%, 100% 5%, 100% 100%, 0% 92%);
+  transform: rotate(-2deg);
+}
+
+.hero-visual .shard--b {
+  bottom: -4%;
+  right: 22%;
+  z-index: 2;
+  width: 44%;
+  clip-path: polygon(0% 9%, 100% 0%, 92% 100%, 0% 100%);
+  transform: rotate(2deg);
+}
+
+/* Doorlopende route: vier scènes met nummer, verbindingslijn en wisselende
+   tekstposities, in plaats van vier identieke kaarten. */
+.route {
+  position: relative;
+}
+
+.route-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 22px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.route-line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--yellow);
+  transition: height 900ms ease;
+}
+
+.route-scene {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 26px;
+  padding: 38px 0;
+}
+
+.route-scene:first-child {
+  padding-top: 0;
+}
+
+.route-scene:last-child {
+  padding-bottom: 0;
+}
+
+.route-scene-number {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: var(--dark);
+  color: rgba(255, 255, 255, 0.6);
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: border-color 500ms ease, color 500ms ease;
+}
+
+.route-scene.is-active .route-scene-number {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+.route-scene-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 210px);
+  gap: 24px;
+  align-items: center;
+}
+
+.route-scene:nth-child(even) .route-scene-body {
+  grid-template-columns: minmax(0, 210px) minmax(0, 1fr);
+}
+
+.route-scene:nth-child(even) .route-scene-media {
+  order: -1;
+}
+
+.route-scene-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0;
+  clip-path: polygon(0% 4%, 100% 0%, 100% 96%, 0% 100%);
+}
+
+.route-scene-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.route-scene h3 {
+  margin-bottom: 8px;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+}
+
+.route-scene p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 52ch;
+}
+
+.route-meta {
+  margin: 40px 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.92rem;
+}
+
+/* Kantelpunt: donker, sober, met een smalle diagonale kapel-uitsnede. */
+.turning-point {
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0;
+  background: var(--navy);
+  color: white;
+}
+
+.turning-point-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 50px;
+  align-items: center;
+}
+
+.turning-point .eyebrow {
+  color: var(--yellow);
+}
+
+.turning-point h2 {
+  max-width: 16ch;
+}
+
+.turning-point-lead {
+  max-width: 46ch;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.turning-point-prose {
+  max-width: 52ch;
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.turning-point-media {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.turning-point-frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+}
+
+.turning-point-frame .shard {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(18% 0%, 100% 8%, 82% 100%, 0% 92%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.turning-point-frame::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  right: -6%;
+  width: 4px;
+  height: 120%;
+  background: linear-gradient(180deg, var(--yellow), var(--pink));
+  transform: rotate(8deg);
+}
+
+/* Reflectiefase: rustiger, turquoise als bewuste kleur voor onderwijs en toekomst. */
+.reflection {
+  background: var(--surface-soft);
+  border-top: 4px solid var(--teal);
+}
+
+.reflection .eyebrow {
+  color: var(--teal-dark);
 }
 
 /* Vijfstappen educatieve route (Beleef, Bespreek, Onderzoek, Weeg af, Formuleer) */
@@ -948,6 +1187,11 @@ a {
     gap: 45px;
   }
 
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
   .page-hero .hero-grid {
     gap: 30px;
   }
@@ -972,17 +1216,35 @@ a {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .time-window-grid {
+  .hero-visual {
+    max-width: 260px;
+    margin: 0 auto;
+    justify-self: center;
+  }
+
+  .turning-point-grid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 34px;
   }
 
-  .time-window-grid--reverse .time-window-figure {
+  .turning-point-media {
+    order: -1;
+    max-width: 320px;
+  }
+
+  .turning-point-frame {
+    aspect-ratio: 4 / 3;
+  }
+
+  .route-scene-body,
+  .route-scene:nth-child(even) .route-scene-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .route-scene-media,
+  .route-scene:nth-child(even) .route-scene-media {
     order: 0;
-  }
-
-  .time-window {
-    transform: translateY(16px) scale(0.99);
+    max-width: 240px;
   }
 
   .contact-card {
@@ -1017,15 +1279,28 @@ a {
     width: 100%;
   }
 
-  .time-window {
-    aspect-ratio: 4 / 3;
-    transform: none;
-    transition: opacity 500ms ease;
+  .hero-visual {
+    max-width: 220px;
+    aspect-ratio: 3 / 4;
   }
 
-  .time-window--right,
-  .time-window--left {
-    clip-path: polygon(0% 6%, 100% 0%, 100% 100%, 0% 100%);
+  .hero-year {
+    font-size: clamp(4rem, 20vw, 6rem);
+  }
+
+  .route-scene {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .route-line {
+    left: 16px;
+  }
+
+  .route-scene-number {
+    width: 34px;
+    height: 34px;
+    font-size: 0.82rem;
   }
 
   .hero-card,

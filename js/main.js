@@ -31,14 +31,14 @@ document.querySelectorAll('a[aria-disabled="true"]').forEach((link) => {
   });
 });
 
-const timeWindows = document.querySelectorAll(".time-window");
+const shards = document.querySelectorAll(".shard");
 const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 ).matches;
 
-if (timeWindows.length) {
+if (shards.length) {
   if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-    timeWindows.forEach((el) => el.classList.add("is-visible"));
+    shards.forEach((el) => el.classList.add("is-visible"));
   } else {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -52,6 +52,38 @@ if (timeWindows.length) {
       { threshold: 0.25 }
     );
 
-    timeWindows.forEach((el) => revealObserver.observe(el));
+    shards.forEach((el) => revealObserver.observe(el));
   }
 }
+
+const routeScenes = document.querySelectorAll("[data-route-scene]");
+const routeFill = document.querySelector(".route-line-fill");
+
+if (routeScenes.length) {
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    routeScenes.forEach((scene) => scene.classList.add("is-active"));
+    if (routeFill) {
+      routeFill.style.height = "100%";
+    }
+  } else {
+    const routeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-active");
+            const index = Array.from(routeScenes).indexOf(entry.target);
+            if (routeFill) {
+              routeFill.style.height = `${
+                ((index + 1) / routeScenes.length) * 100
+              }%`;
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    routeScenes.forEach((scene) => routeObserver.observe(scene));
+  }
+}
+
