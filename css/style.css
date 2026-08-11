@@ -57,19 +57,19 @@ h3 {
 h1 {
   max-width: 850px;
   margin-bottom: 24px;
-  font-size: clamp(3.4rem, 8vw, 6.8rem);
-  letter-spacing: -0.04em;
+  font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+  letter-spacing: -0.03em;
 }
 
 h2 {
   margin-bottom: 22px;
-  font-size: clamp(2.5rem, 5vw, 4.6rem);
-  letter-spacing: -0.025em;
+  font-size: clamp(1.9rem, 3.6vw, 3.2rem);
+  letter-spacing: -0.02em;
 }
 
 h3 {
   margin-bottom: 12px;
-  font-size: 2rem;
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
 }
 
 a {
@@ -210,9 +210,16 @@ a {
 }
 
 .hero-text {
-  max-width: 720px;
+  max-width: 68ch;
   color: var(--muted);
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+}
+
+.hero-lead {
+  max-width: 60ch;
+  margin: -8px 0 0;
+  color: var(--muted);
+  font-size: clamp(1.02rem, 1.4vw, 1.15rem);
 }
 
 .hero-logo-preview {
@@ -330,8 +337,13 @@ a {
 }
 
 .prose {
+  max-width: 68ch;
   color: var(--muted);
   font-size: 1.08rem;
+}
+
+.prose p + p {
+  margin-top: 18px;
 }
 
 .section-dark .prose {
@@ -661,13 +673,114 @@ a {
 .page-hero .hero-side-card {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
 }
 
-.page-hero img {
-  display: block;
-  width: min(100%, 420px);
+/* Beeldkader met vaste beeldverhouding, voorkomt layout shift en dwingt
+   consistente uitsnedes af. Verhouding per plaatsing via --ratio instellen. */
+.media-frame {
+  position: relative;
+  overflow: hidden;
+  width: min(100%, 440px);
+  aspect-ratio: var(--ratio, 4 / 3);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  background: var(--surface-soft);
+}
+
+.media-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focal, center);
+}
+
+.media-frame--contain img {
+  object-fit: contain;
+}
+
+/* Historische tijdvensters: diagonale inkeping waardoor het oude Amersfoort
+   zichtbaar wordt binnen de moderne pagina. */
+.time-window-section {
+  padding: 70px 0;
+}
+
+.time-window-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 50px;
+  align-items: center;
+}
+
+.time-window-grid--reverse .time-window-figure {
+  order: -1;
+}
+
+.time-window-figure {
+  margin: 0;
+}
+
+.time-window {
+  position: relative;
+  aspect-ratio: var(--ratio, 4 / 5);
+  overflow: hidden;
+  border-radius: var(--radius);
+  opacity: 0;
+  transform: translateY(26px) scale(0.98);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.time-window.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.time-window img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focal, center);
+  filter: grayscale(12%) contrast(1.04);
+}
+
+.time-window--right {
+  clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.time-window--left {
+  clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+}
+
+.time-window-figure figcaption {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .time-window {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Vijfstappen educatieve route (Beleef, Bespreek, Onderzoek, Weeg af, Formuleer) */
+.steps-grid--five {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.steps-grid--five .person-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.steps-grid--five h3 {
+  font-size: 1.3rem;
 }
 
 .page-section {
@@ -675,7 +788,7 @@ a {
 }
 
 .page-intro {
-  max-width: 760px;
+  max-width: 62ch;
   color: var(--muted);
   font-size: 1.08rem;
 }
@@ -794,6 +907,11 @@ a {
   opacity: 0.75;
 }
 
+/* Verbergt een blok volledig wanneer de inhoud nog niet publicatieklaar is. */
+.is-hidden {
+  display: none !important;
+}
+
 @media (max-width: 900px) {
   .menu-button {
     display: inline-flex;
@@ -850,6 +968,23 @@ a {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .steps-grid--five {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .time-window-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .time-window-grid--reverse .time-window-figure {
+    order: 0;
+  }
+
+  .time-window {
+    transform: translateY(16px) scale(0.99);
+  }
+
   .contact-card {
     display: block;
   }
@@ -868,17 +1003,29 @@ a {
     padding: 78px 0;
   }
 
-  h1 {
-    font-size: 3.25rem;
-  }
-
   .cards-grid,
   .info-grid,
   .stats-grid,
   .team-grid,
   .steps-grid,
+  .steps-grid--five,
   .document-grid {
     grid-template-columns: 1fr;
+  }
+
+  .media-frame {
+    width: 100%;
+  }
+
+  .time-window {
+    aspect-ratio: 4 / 3;
+    transform: none;
+    transition: opacity 500ms ease;
+  }
+
+  .time-window--right,
+  .time-window--left {
+    clip-path: polygon(0% 6%, 100% 0%, 100% 100%, 0% 100%);
   }
 
   .hero-card,
