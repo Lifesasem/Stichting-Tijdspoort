@@ -844,7 +844,7 @@ a {
   font-size: 0.92rem;
 }
 
-/* Kantelpunt: compact, zonder beeld — typografie, kleur en een diagonaal accent. */
+/* Kantelpunt: compact, zonder beeld — typografie, kleur en negatieve ruimte. */
 .turning-point {
   position: relative;
   overflow: hidden;
@@ -854,19 +854,6 @@ a {
   padding: 80px 0;
   background: var(--navy);
   color: white;
-}
-
-.turning-point::before {
-  content: "";
-  position: absolute;
-  top: -30%;
-  right: -8%;
-  width: 42%;
-  height: 160%;
-  background: linear-gradient(160deg, var(--yellow) 0%, var(--pink) 100%);
-  opacity: 0.1;
-  transform: skewX(-12deg);
-  pointer-events: none;
 }
 
 .turning-point-inner {
@@ -1132,6 +1119,30 @@ a {
 .page-section-tight .note {
   margin: 0;
   font-size: 0.85rem;
+}
+
+/* Homepage: koptekst en toelichting onder elkaar in plaats van naast elkaar,
+   zonder de gedeelde .section-heading/.split-layout op andere pagina's te wijzigen. */
+.page-home .section-heading {
+  display: block;
+  margin-bottom: 40px;
+}
+
+.page-home .section-heading h2 {
+  max-width: none;
+  margin-bottom: 10px;
+}
+
+.page-home .section-heading p {
+  max-width: 65ch;
+}
+
+.page-home .split-layout {
+  display: block;
+}
+
+.page-home .split-layout > div:nth-child(2) {
+  margin-top: 24px;
 }
 
 @media (max-width: 900px) {
