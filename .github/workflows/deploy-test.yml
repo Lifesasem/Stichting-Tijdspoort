@@ -1,21 +1,21 @@
-name: Deploy website to Mijn.host
+name: Deploy testwebsite to Mijn.host
 
 on:
   push:
     branches:
-      - main
+      - develop
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: tijdspoort-production
+  group: tijdspoort-test
   cancel-in-progress: true
 
 jobs:
   deploy:
-    name: Deploy production website
+    name: Deploy test website
     runs-on: ubuntu-latest
 
     steps:
@@ -36,16 +36,26 @@ jobs:
             --exclude="CLAUDE-PROMPT.txt" \
             ./ "$RUNNER_TEMP/tijdspoort-site/"
 
+          # Voorkom dat zoekmachines de testwebsite indexeren
+          printf 'User-agent: *\nDisallow: /\n' \
+            > "$RUNNER_TEMP/tijdspoort-site/robots.txt"
+
+          printf '%s\n' \
+            '<IfModule mod_headers.c>' \
+            '  Header set X-Robots-Tag "noindex, nofollow, noarchive"' \
+            '</IfModule>' \
+            > "$RUNNER_TEMP/tijdspoort-site/.htaccess"
+
       - name: LFTP installeren
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      - name: Website via SFTP publiceren
+      - name: Testwebsite via SFTP publiceren
         env:
           SFTP_HOST: ${{ secrets.SFTP_HOST }}
           SFTP_PORT: ${{ secrets.SFTP_PORT }}
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
           SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-          SFTP_REMOTE_PATH: ${{ secrets.SFTP_REMOTE_PATH }}
+          SFTP_REMOTE_PATH: ${{ secrets.SFTP_TEST_REMOTE_PATH }}
         run: |
           lftp -u "$SFTP_USERNAME","$SFTP_PASSWORD" \
             -p "$SFTP_PORT" \
