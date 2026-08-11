@@ -1101,6 +1101,39 @@ a {
   display: none !important;
 }
 
+/* ANBI-pagina: paginaspecifieke aanpassingen, zonder de gedeelde klassen
+   op andere pagina's te wijzigen. */
+.page-anbi .page-section {
+  padding: 56px 0;
+}
+
+.page-anbi .section-heading {
+  display: block;
+  margin-bottom: 26px;
+}
+
+.page-anbi .section-heading h2 {
+  max-width: none;
+  margin-bottom: 8px;
+}
+
+.page-anbi .section-heading p {
+  max-width: 65ch;
+}
+
+.info-list--spaced {
+  gap: 20px;
+}
+
+.page-section-tight {
+  padding: 20px 0 40px;
+}
+
+.page-section-tight .note {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
 @media (max-width: 900px) {
   .menu-button {
     display: inline-flex;
