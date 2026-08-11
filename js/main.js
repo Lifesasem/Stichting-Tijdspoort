@@ -40,9 +40,30 @@ const heroVideo = document.querySelector("[data-hero-video]");
 if (heroVideo && !prefersReducedMotion) {
   heroVideo.setAttribute("preload", "auto");
   heroVideo.muted = true;
-  heroVideo.play().catch(() => {
-    // Autoplay kan door de browser worden geblokkeerd; de poster blijft dan zichtbaar.
-  });
+
+  const playFromStart = () => {
+    heroVideo.currentTime = 0;
+    heroVideo.play().catch(() => {
+      // Autoplay kan door de browser worden geblokkeerd; de poster blijft dan zichtbaar.
+    });
+  };
+
+  if ("IntersectionObserver" in window) {
+    const heroVideoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playFromStart();
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+
+    heroVideoObserver.observe(heroVideo);
+  } else {
+    playFromStart();
+  }
 }
 
 const routeScenes = document.querySelectorAll("[data-route-scene]");
