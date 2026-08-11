@@ -861,7 +861,8 @@ a {
 .turning-point-inner {
   position: relative;
   z-index: 1;
-  max-width: 640px;
+  width: 100%;
+  max-width: 1000px;
 }
 
 .turning-point .eyebrow {
@@ -884,6 +885,22 @@ a {
   max-width: 56ch;
   margin-top: 20px;
   color: rgba(255, 255, 255, 0.78);
+}
+
+#kantelpunt .turning-point-inner h2 {
+  width: 100%;
+  max-width: none;
+}
+
+#kantelpunt .turning-point-prose {
+  width: 100%;
+  max-width: 70ch;
+}
+
+@media (min-width: 900px) {
+  #kantelpunt .turning-point-inner h2 {
+    white-space: nowrap;
+  }
 }
 
 /* Reflectiefase: rustiger, turquoise als bewuste kleur voor onderwijs en toekomst. */
@@ -1315,5 +1332,8 @@ a {
 
 #stad .section-heading > p {
   margin-top: 0;
+}
+.family-container {
+  margin-top: 3rem;
 }
 }
