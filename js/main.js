@@ -31,29 +31,18 @@ document.querySelectorAll('a[aria-disabled="true"]').forEach((link) => {
   });
 });
 
-const shards = document.querySelectorAll(".shard");
 const prefersReducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 ).matches;
 
-if (shards.length) {
-  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-    shards.forEach((el) => el.classList.add("is-visible"));
-  } else {
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
+const heroVideo = document.querySelector("[data-hero-video]");
 
-    shards.forEach((el) => revealObserver.observe(el));
-  }
+if (heroVideo && !prefersReducedMotion) {
+  heroVideo.setAttribute("preload", "auto");
+  heroVideo.muted = true;
+  heroVideo.play().catch(() => {
+    // Autoplay kan door de browser worden geblokkeerd; de poster blijft dan zichtbaar.
+  });
 }
 
 const routeScenes = document.querySelectorAll("[data-route-scene]");

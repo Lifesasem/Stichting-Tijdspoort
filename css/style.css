@@ -199,7 +199,7 @@ a {
 
 .hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(240px, 380px);
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 440px);
   gap: 50px;
   align-items: center;
 }
@@ -227,14 +227,6 @@ a {
   margin: -8px 0 0;
   color: var(--muted);
   font-size: clamp(1.02rem, 1.4vw, 1.15rem);
-}
-
-.hero-sensory {
-  max-width: 50ch;
-  margin: 0;
-  color: var(--navy);
-  font-weight: 600;
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
 }
 
 .hero-logo-preview {
@@ -334,19 +326,6 @@ a {
 
 .section {
   padding: 110px 0;
-}
-
-.section-tight {
-  padding: 56px 0;
-}
-
-.sensory-line {
-  max-width: 60ch;
-  margin: 0;
-  font-family: "Fredoka", "Inter", sans-serif;
-  font-weight: 600;
-  font-size: clamp(1.3rem, 3vw, 2rem);
-  color: var(--yellow);
 }
 
 .section-dark {
@@ -728,102 +707,44 @@ a {
   object-fit: contain;
 }
 
-/* Historische beeldflarden: kleine, asymmetrische fragmenten die de moderne
-   pagina binnendringen. Grootte, rotatie en uitsnede per plaatsing instelbaar
-   via modifierclasses en de --ratio/--focal custom properties. */
-.shard {
+/* Hero-video: het filmpje vult het rechterdeel van de hero en vloeit met een
+   gradient over in de achtergrond. Op mobiel wordt het een zacht full-bleed
+   achtergrondlaag achter de tekst. */
+.hero {
   position: relative;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(24px) scale(0.98);
-  transition: opacity 700ms ease, transform 700ms ease;
 }
 
-.shard.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
+.hero-media {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 3 / 4;
+  justify-self: end;
+  overflow: hidden;
 }
 
-.shard img {
-  display: block;
+.hero-media video,
+.hero-media-fallback {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: var(--focal, center);
-  filter: grayscale(15%) contrast(1.05);
+  object-position: center 20%;
 }
 
-.shard figcaption {
-  margin-top: 8px;
-  color: var(--muted);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.78rem;
-  font-style: italic;
-}
-
-.section-dark .shard figcaption {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .shard {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
-
-/* Hero-beeldcluster: twee kleine flarden plus een decoratief jaartal. */
-.hero-visual {
-  position: relative;
-  width: 100%;
-  max-width: 380px;
-  aspect-ratio: 4 / 5;
-  justify-self: end;
-}
-
-.hero-year {
+.hero-media::before {
+  content: "";
   position: absolute;
-  top: -0.2em;
-  right: -0.08em;
-  z-index: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 700;
-  font-size: clamp(5.5rem, 15vw, 9.5rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: rgba(20, 33, 61, 0.09);
-  pointer-events: none;
-  user-select: none;
-}
-
-.hero-visual .shard {
-  position: absolute;
-  aspect-ratio: var(--ratio, 4 / 5);
-  border-radius: 0;
-  box-shadow: 0 20px 44px rgba(20, 33, 61, 0.22);
-}
-
-.hero-visual .shard--a {
-  top: 4%;
-  right: -6%;
+  inset: 0;
   z-index: 1;
-  width: 62%;
-  clip-path: polygon(14% 0%, 100% 5%, 100% 100%, 0% 92%);
-  transform: rotate(-2deg);
+  background: linear-gradient(90deg, #f6f2ed 0%, rgba(246, 242, 237, 0) 30%);
+  pointer-events: none;
 }
 
-.hero-visual .shard--b {
-  bottom: -4%;
-  right: 22%;
-  z-index: 2;
-  width: 44%;
-  clip-path: polygon(0% 9%, 100% 0%, 92% 100%, 0% 100%);
-  transform: rotate(2deg);
-}
-
-/* Doorlopende route: vier scènes met nummer, verbindingslijn en wisselende
-   tekstposities, in plaats van vier identieke kaarten. */
+/* Doorlopende route: vier scènes met nummer, verbindingslijn en een subtiele
+   locatiefoto op de achtergrond in plaats van losse fotokaarten. */
 .route {
   position: relative;
 }
@@ -849,21 +770,39 @@ a {
 
 .route-scene {
   position: relative;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 46px minmax(0, 1fr);
   gap: 26px;
-  padding: 38px 0;
+  padding: 34px 22px;
 }
 
 .route-scene:first-child {
-  padding-top: 0;
+  padding-top: 12px;
 }
 
 .route-scene:last-child {
-  padding-bottom: 0;
+  padding-bottom: 12px;
+}
+
+.route-scene-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.14;
+}
+
+.route-scene-bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(80%) brightness(0.6) sepia(12%) hue-rotate(175deg);
 }
 
 .route-scene-number {
+  position: relative;
+  z-index: 1;
   display: grid;
   width: 46px;
   height: 46px;
@@ -884,32 +823,8 @@ a {
 }
 
 .route-scene-body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 210px);
-  gap: 24px;
-  align-items: center;
-}
-
-.route-scene:nth-child(even) .route-scene-body {
-  grid-template-columns: minmax(0, 210px) minmax(0, 1fr);
-}
-
-.route-scene:nth-child(even) .route-scene-media {
-  order: -1;
-}
-
-.route-scene-media {
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-radius: 0;
-  clip-path: polygon(0% 4%, 100% 0%, 100% 96%, 0% 100%);
-}
-
-.route-scene-media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  position: relative;
+  z-index: 1;
 }
 
 .route-scene h3 {
@@ -920,7 +835,7 @@ a {
 .route-scene p {
   margin: 0;
   color: rgba(255, 255, 255, 0.82);
-  max-width: 52ch;
+  max-width: 58ch;
 }
 
 .route-meta {
@@ -929,20 +844,35 @@ a {
   font-size: 0.92rem;
 }
 
-/* Kantelpunt: donker, sober, met een smalle diagonale kapel-uitsnede. */
+/* Kantelpunt: compact, zonder beeld — typografie, kleur en een diagonaal accent. */
 .turning-point {
   position: relative;
   overflow: hidden;
-  padding: 100px 0;
+  display: flex;
+  align-items: center;
+  min-height: 560px;
+  padding: 80px 0;
   background: var(--navy);
   color: white;
 }
 
-.turning-point-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: 50px;
-  align-items: center;
+.turning-point::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -8%;
+  width: 42%;
+  height: 160%;
+  background: linear-gradient(160deg, var(--yellow) 0%, var(--pink) 100%);
+  opacity: 0.1;
+  transform: skewX(-12deg);
+  pointer-events: none;
+}
+
+.turning-point-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
 }
 
 .turning-point .eyebrow {
@@ -962,38 +892,9 @@ a {
 }
 
 .turning-point-prose {
-  max-width: 52ch;
+  max-width: 56ch;
   margin-top: 20px;
   color: rgba(255, 255, 255, 0.78);
-}
-
-.turning-point-media {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.turning-point-frame {
-  position: relative;
-  aspect-ratio: 3 / 4;
-}
-
-.turning-point-frame .shard {
-  position: absolute;
-  inset: 0;
-  clip-path: polygon(18% 0%, 100% 8%, 82% 100%, 0% 92%);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-}
-
-.turning-point-frame::before {
-  content: "";
-  position: absolute;
-  top: -10%;
-  right: -6%;
-  width: 4px;
-  height: 120%;
-  background: linear-gradient(180deg, var(--yellow), var(--pink));
-  transform: rotate(8deg);
 }
 
 /* Reflectiefase: rustiger, turquoise als bewuste kleur voor onderwijs en toekomst. */
@@ -1004,6 +905,33 @@ a {
 
 .reflection .eyebrow {
   color: var(--teal-dark);
+}
+
+.reflection-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.reflection-steps li {
+  position: relative;
+  padding-left: 24px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.reflection-steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--teal-dark);
+  font-family: "Fredoka", sans-serif;
 }
 
 /* Vijfstappen educatieve route (Beleef, Bespreek, Onderzoek, Weeg af, Formuleer) */
@@ -1216,35 +1144,34 @@ a {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .hero-visual {
-    max-width: 260px;
-    margin: 0 auto;
-    justify-self: center;
+  .hero-media {
+    max-width: none;
+    aspect-ratio: auto;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
   }
 
-  .turning-point-grid {
-    grid-template-columns: 1fr;
-    gap: 34px;
+  .hero-media::before {
+    background: linear-gradient(
+      180deg,
+      rgba(246, 242, 237, 0.78) 0%,
+      rgba(246, 242, 237, 0.94) 100%
+    );
   }
 
-  .turning-point-media {
-    order: -1;
-    max-width: 320px;
+  .hero-content {
+    position: relative;
+    z-index: 1;
   }
 
-  .turning-point-frame {
-    aspect-ratio: 4 / 3;
+  .turning-point {
+    min-height: auto;
+    padding: 64px 0;
   }
 
-  .route-scene-body,
-  .route-scene:nth-child(even) .route-scene-body {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .route-scene-media,
-  .route-scene:nth-child(even) .route-scene-media {
-    order: 0;
-    max-width: 240px;
+  .turning-point-inner {
+    max-width: none;
   }
 
   .contact-card {
@@ -1279,18 +1206,19 @@ a {
     width: 100%;
   }
 
-  .hero-visual {
-    max-width: 220px;
-    aspect-ratio: 3 / 4;
+  .turning-point {
+    padding: 52px 0;
   }
 
-  .hero-year {
-    font-size: clamp(4rem, 20vw, 6rem);
+  .turning-point::before {
+    width: 70%;
+    opacity: 0.08;
   }
 
   .route-scene {
     grid-template-columns: 34px minmax(0, 1fr);
     gap: 16px;
+    padding: 26px 16px;
   }
 
   .route-line {
