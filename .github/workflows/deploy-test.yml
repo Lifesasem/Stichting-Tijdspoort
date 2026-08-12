@@ -40,6 +40,13 @@ jobs:
           printf 'User-agent: *\nDisallow: /\n' \
             > "$RUNNER_TEMP/tijdspoort-site/robots.txt"
 
+      - name: Cacheversie automatisch toevoegen
+        run: |
+          find "$RUNNER_TEMP/tijdspoort-site" \
+            -type f \
+            -name "*.html" \
+            -exec sed -i "s/__ASSET_VERSION__/$GITHUB_SHA/g" {} +
+
           printf '%s\n' \
             '<IfModule mod_headers.c>' \
             '  Header set X-Robots-Tag "noindex, nofollow, noarchive"' \
