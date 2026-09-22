@@ -982,6 +982,11 @@ a {
   background: rgba(255,255,255,0.68);
 }
 
+.document-card {
+  display: flex;
+  flex-direction: column;
+}
+
 .info-list {
   display: grid;
   gap: 16px;
@@ -1061,7 +1066,8 @@ a {
 .document-link {
   display: inline-flex;
   align-items: center;
-  margin-top: 14px;
+  align-self: flex-start;
+  margin-top: auto;
   padding: 8px 16px;
   border-radius: 999px;
   background: var(--button-bg);
